@@ -1,5 +1,6 @@
 ﻿@page "/fetchdata"
 @inject HttpClient Http
+@inject ProxyClient Proxy
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -36,12 +37,39 @@ else
     </table>
 }
 
+@if (consumptions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Consumption</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consumption in consumptions.Data)
+            {
+                <tr>
+                    <td>@consumption.DateTime.ToString()</td>
+                    <td>@consumption.Consumption</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
 @code {
     private WeatherForecast[]? forecasts;
+    private WaterConsumptionModel? consumptions;
 
     protected override async Task OnInitializedAsync()
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        consumptions = await Proxy.GetWaterConsumptionDataAsync();
     }
 
     public class WeatherForecast
