@@ -39,7 +39,7 @@ To run this app on your GitHub Codespaces, you need to update your `appsettings.
 
 * Copy your `appsettings.json` to `appsettings.Development.json` and update the `RunOnCodespaces` value to `true`.
 
-    ```json
+    ```jsonc
     // appsettings.Development.json
     {
       "RunOnCodespaces": true
