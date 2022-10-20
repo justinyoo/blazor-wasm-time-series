@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject ProxyClient Proxy
 
 <PageTitle>Index</PageTitle>
 
@@ -7,3 +8,22 @@
 Welcome to your new app.
 
 <SurveyPrompt Title="How is Blazor working for you?" />
+
+@if (consumptions == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <WaterConsumptionChart Consumptions="consumptions" />
+}
+
+@code {
+    private List<WaterConsumptionItemModel>? consumptions;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Proxy.GetWaterConsumptionDataAsync();
+        consumptions = result.Data.ToList();
+    }
+}
