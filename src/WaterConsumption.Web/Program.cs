@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
 using WaterConsumption.Web;
 using WaterConsumption.Web.Proxies;
 
@@ -13,6 +14,12 @@ builder.Services.AddScoped(sp =>
     var http = sp.GetService<HttpClient>();
     var proxy = new ProxyClient(http);
     if (builder.HostEnvironment.IsDevelopment() != true)
+    {
+        proxy.BaseUrl = $"{builder.HostEnvironment.BaseAddress.TrimEnd('/')}/api";
+    }
+
+    var codespaces = builder.Configuration.GetValue<bool>("RunOnCodespaces");
+    if (codespaces)
     {
         proxy.BaseUrl = $"{builder.HostEnvironment.BaseAddress.TrimEnd('/')}/api";
     }
