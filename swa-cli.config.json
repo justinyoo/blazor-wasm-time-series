@@ -1,12 +1,10 @@
 {
   "$schema": "https://aka.ms/azure/static-web-apps-cli/schema",
   "configurations": {
-    "blazor-wasm-headless-cms": {
+    "blazor-wasm-time-series": {
       "appLocation": "src/WaterConsumption.Web",
       "apiLocation": "src/WaterConsumption.Proxy",
-      "outputLocation": "bin/wwwroot",
-      "appBuildCommand": "dotnet publish -c Release -o bin",
-      "apiBuildCommand": "dotnet publish -c Release -o bin/published",
+      "outputLocation": "wwwroot",
       "run": "dotnet watch run",
       "appDevserverUrl": "http://localhost:5000"
     }
